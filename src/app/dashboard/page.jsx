@@ -2,6 +2,7 @@
 import React from 'react'
 import styles from "./page.module.css";
 import useSWR from "swr";
+import { useSession } from 'next-auth/react';
 
 
 function Dashboard () {
@@ -30,6 +31,7 @@ function Dashboard () {
   //   getData()
   // }, []);
 
+  const session = useSession();
   // USING SWR
   const fetcher = (...args) => fetch(...args).then((res) => res.json());
   const { data, error } = useSWR(

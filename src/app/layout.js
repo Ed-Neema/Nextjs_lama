@@ -3,6 +3,7 @@ import "./globals.css";
 import { Varela_Round } from "next/font/google";
 import Footer from "@/components/footer/Footer";
 import { ThemeProvider } from "../context/ThemeContext";
+import AuthProvider from "@/components/authprovider/authprovider";
 
 const valera = Varela_Round({ weight: "400", subsets: ["latin"] });
 
@@ -16,11 +17,14 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={valera.className}>
         <ThemeProvider>
+        <AuthProvider>
           <div className="container">
             <Navbar />
             {children}
             <Footer />
           </div>
+
+        </AuthProvider>
         </ThemeProvider>
       </body>
     </html>
