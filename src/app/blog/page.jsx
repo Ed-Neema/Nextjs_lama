@@ -1,8 +1,25 @@
-import React from 'react'
+import React from "react";
 import styles from "./page.module.css";
-import Link from 'next/link';
-import Image from 'next/image';
-const BlogPage = () => {
+import Link from "next/link";
+import Image from "next/image";
+
+async function getData() {
+  const res = await fetch("http://localhost:3000/api/posts", {
+    // cache: 'force-cache' --> default
+    // next: { revalidate: 10 } --> revalidate cached data at a timed interval
+    // { cache: 'no-store' } --> To fetch fresh data on every fetch request
+  });
+
+  if (!res.ok) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error("Failed to fetch data");
+  }
+
+  return res.json();
+}
+
+const BlogPage = async () => {
+  const data = await getData();
   return (
     <div className={styles.mainContainer}>
       {data.map((item) => (
@@ -28,6 +45,6 @@ const BlogPage = () => {
       ))}
     </div>
   );
-}
+};
 
-export default BlogPage
+export default BlogPage;
